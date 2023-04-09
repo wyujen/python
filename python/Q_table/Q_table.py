@@ -19,7 +19,7 @@ def print_table(name,table,n_st = " " ):
     print(name.center(60,"="))
     print(table)
 
-    #初始化紀錄路線
+#初始化紀錄路線
 
 def init_route():
     route = []
@@ -134,7 +134,7 @@ def t_add_loadcation(t_x,t_y,t_direction):
     
 
     
-
+#計算分數及分數更新
 # 1.reward = t+1 reward  
 # 2.new_max_fraction = t+1 所有方向中最高state值
 # 3.t_direction = t 過來的方向的Q_value值
@@ -142,12 +142,17 @@ def t_add_loadcation(t_x,t_y,t_direction):
 # 5.study = 學習率 (預設0.9)
 # 6.輸出為 new_q_direction 為t位置時往t+1方向，新的Q值
 
-def q_value_calculate(reward , new_max_fraction , t_direction , attenuation = 0.9 , study = 0.9):
+def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , attenuation = 0.9 , study = 0.9):
     
-    td = reward + (attenuation*new_max_fraction) - t_direction
+    reward = base_table[t_add_x,t_add_y]
+    new_max_fraction = judge_max_qvalue_direction(q_table,t_add_x,t_add_y)
+    t_add_max_q = q_table[t_add_x,t_add_y,new_max_fraction]
+
+    td = reward + (attenuation*t_add_max_q) - t_direction
     new_q_direction = (td * study) + t_direction
 
-    return new_q_direction
+    q_table[t_x,t_y,t_direction] = new_q_direction
+    return q_table
 
 #運行區
 
