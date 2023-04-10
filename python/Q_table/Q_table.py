@@ -37,6 +37,7 @@ def q_table_max_pain(q_table ,base_rows,base_columns,n_st):
     ax = sns.heatmap(max_q_table,vmax=100,vmin= -10,cmap = "RdBu_r",linewidths= 0.3 ,center = 0)
     plt.plot()
     plt.show()
+    
 #圖像化Q_label功能(熱點圖)END
 
 
