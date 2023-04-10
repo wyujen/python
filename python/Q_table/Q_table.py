@@ -1,6 +1,7 @@
 import numpy as np
 import random as rd
 
+
 #係數建立區
 
 base_columns = 11
@@ -15,16 +16,16 @@ def print_table(name,table,n_st = " " ):
     if n_st == " ":
         name =" "+name+" "
     else:
-        name =" NO. "+n_st+" Times "+name+" "
+        name =" 訓練 "+n_st+" 次 "+name+" "
     print(name.center(60,"="))
     print(table)
 
-#初始化紀錄路線
+#圖像化Q_label功能(熱點圖)start
 
-def init_route():
-    route = []
-    q_vallue_action = [] 
-    return route, q_vallue_action
+
+
+
+
 
 #獨立功能塊 end
 
@@ -85,19 +86,6 @@ def random_direction():
     t_direction = np.random.randint(0,4)
     return t_direction
 
-
-#判斷Qvalue最大值方向
-"""
-def judge_max_qvalue_direction(q_table,t_x,t_y):
-
-    if t_q_direction[0]==t_q_direction[1]==t_q_direction[2]==t_q_direction[3]:
-        t_direction = random_direction()
-    else :
-        max_q_value= max (t_q_direction)
-        t_direction = t_q_direction.index(max_q_value)
-    return t_direction
-"""
-
 #(二-3) end 決定t時的方向
 def get_t_direction(q_table,t_x,t_y,try_tast = 0.9):
     try_new_action_value = try_new_action()
@@ -105,7 +93,6 @@ def get_t_direction(q_table,t_x,t_y,try_tast = 0.9):
         t_direction = random_direction()
     elif try_new_action_value == 1:
         t_direction = np.argmax(q_table[t_x,t_y])
-        #t_direction = judge_max_qvalue_direction(q_table,t_x,t_y)
     else:
         print("get_t_direction error")
     return t_direction
@@ -147,7 +134,6 @@ def t_add_loadcation(t_x,t_y,t_direction):
 def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , attenuation = 0.9 , study = 0.9):
     
     reward = base_table[t_add_x,t_add_y]
-    #new_max_fraction = judge_max_qvalue_direction(q_table,t_add_x,t_add_y)
     new_max_fraction = np.argmax(q_table[t_add_x,t_add_y])
     t_add_max_q = q_table[t_add_x,t_add_y,new_max_fraction]
 
@@ -176,8 +162,7 @@ def train_q(train ,base_table,q_table):
             else :
                 continue
     else :
-        print("訓練完成")
-        return q_table 
+        return q_table
 
 
 
@@ -186,30 +171,41 @@ def train_q(train ,base_table,q_table):
 start_value = 1 
 while start_value == 1:
     base_table , q_table = init_table()
-    train = int(input("輸入預訓練次數"))
+    all_train = 0
+    train = int(input("輸入預訓練次數: "))
     q_table = train_q(train,base_table,q_table)
+    all_train = train
+    print("預訓練完成")
 
     command_value = 1
     while command_value == 1:
-        print("1 = 再訓練 2 = 取得最短路徑 3 = 展示 Q table  4 = 重新訓練")
-        command_table = [1,2,3,4]
-        command = int(input("請輸入數字"))
+        print("已訓練 ",all_train," 次")
+        print(" 1_再訓練 2_取得最短路徑 3_展示 Q table  4_重新訓練 5_離開")
+        command_table = [1,2,3,4,5]
+        command = int(input("請輸入數字: "))
 
         if command not in command_table:
             print("輸入錯誤")
             continue
         elif command == 1:
-            train = input("輸入訓練次數")
+            train = int(input("輸入再訓練次數: "))
             q_table = train_q(train,base_table,q_table)
+            all_train = all_train + train
+            print("再訓練完成")
             continue
         elif command == 2:
+            print("未完成")
             continue
         elif command == 3:
+            print_table("Q_table",q_table,all_train)
             print(q_table)
             continue
         elif command == 4:
             command_value = 0
             break
+        elif command == 5:
+            command_value = 0
+            start_value = 0
         else :
             continue
 
