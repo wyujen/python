@@ -62,12 +62,12 @@ def random_start():
     while output == 0:
         t_x = np.random.randint(0,11)
         t_y = np.random.randint(0,11)
-        z = base_table[x,y]
+        z = base_table[t_x,t_y]
         if z == -1 :
             return t_x,t_y
             output = 1
         else :
-            break
+            continue
 
 #(二-3)start
 
@@ -141,6 +141,7 @@ def t_add_loadcation(t_x,t_y,t_direction):
 # 4.attenuation = 衰減率 (預設0.9)
 # 5.study = 學習率 (預設0.9)
 # 6.輸出為 new_q_direction 為t位置時往t+1方向，新的Q值
+# 7.更新Qtable值
 
 def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , attenuation = 0.9 , study = 0.9):
     
@@ -154,11 +155,73 @@ def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , 
     q_table[t_x,t_y,t_direction] = new_q_direction
     return q_table
 
+
+def train_q(train ,base_table,q_table):
+    train_n = 1
+    while train_n < train :
+        train_t = 1
+        t_x , t_y = random_start()
+        while train_t == 1 :
+            t_direction = get_t_direction(base_table,t_x,t_y)
+            t_add_x,t_add_y = t_add_loadcation(t_x,t_y,t_direction)
+            q_table = q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction)
+            record =[]
+            record.append(t_x,t_y)
+            t_x = t_add_x
+            t_y = t_add_y
+            if base_table[t_add_x,t_add_y] == -100 or 100 :
+                train_t = 0
+                train_n = train_n + 1
+            else :
+                continue
+    else :
+        print("訓練完成")
+        return q_table , record
+
+        
+
+
+
+
+
+
+
 #運行區
 
-base_table, q_table = init_table()
-print_table("start",q_table)
-print_table("start",base_table)
+start_value = 1 
+while start_value == 1:
+    base_table , q_table = init_table()
+    train = int(input("輸入預訓練次數"))
+    q_table,record = train_q(train,base_table,q_table)
+
+    command_value = 1
+    while command_value == 1:
+        print("1 = 再訓練 2 = 取得最短路徑 3 = 展示 Q table  4 = 重新訓練")
+        command_table = [1,2,3,4]
+        command = inputint(("請輸入數字"))
+
+        if command not in command_table:
+            print("輸入錯誤")
+            continue
+        elif command == 1:
+            train = input("輸入訓練次數")
+            q_table = train_q(train,base_table,q_table)
+            continue
+        elif command == 2:
+            continue
+        elif command == 3:
+            print(q_table)
+            continue
+        elif command == 4:
+            continue
+        elif command == 5:
+            command_value = 0
+            break
+
+
+
+
+
 
 
 
