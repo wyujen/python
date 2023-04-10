@@ -1,6 +1,7 @@
 import numpy as np
 import random as rd
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 #係數建立區
 
@@ -11,20 +12,32 @@ base_rows = 11
 
 #列印table fuction
 
-def print_table(name,table,n_st = " " ):
+def print_title(name,n_st = " " ):
     n_st = str(n_st)
     if n_st == " ":
         name =" "+name+" "
     else:
         name =" 訓練 "+n_st+" 次 "+name+" "
     print(name.center(60,"="))
-    print(table)
 
 #圖像化Q_label功能(熱點圖)start
 
+#Q_table 三維矩陣依最大值轉換成二維後依熱力圖成像
 
+def q_table_max_pain(q_table ,base_rows,base_columns,n_st):
+    max_q_table = np.zeros((base_rows,base_columns))
+    for x in range (0,base_rows):
 
-
+        for y in range (0,base_columns):
+            max_q = np.argmax(q_table[x,y])
+            max_q_value= q_table[x,y,max_q]
+            max_q_table[x,y] = max_q_value
+            #print(x,"  ",y,"  ",max_q,max_q_table[x,y])
+    print_title("q_table",n_st)
+    ax = sns.heatmap(max_q_table,vmax=100,vmin= -10,cmap = "RdBu_r",linewidths= 0.3 ,center = 0)
+    plt.plot()
+    plt.show()
+#圖像化Q_label功能(熱點圖)END
 
 
 #獨立功能塊 end
@@ -73,7 +86,7 @@ def random_start(base_table):
 #(二-3)start
 
 #是否嘗試新路線 輸出 0 為是；輸出 1 為否
-def try_new_action(try_tast = 0.9):
+def try_new_action(try_tast):
     action = rd.uniform(0,1)
     if action < try_tast:
         return 1
@@ -87,8 +100,8 @@ def random_direction():
     return t_direction
 
 #(二-3) end 決定t時的方向
-def get_t_direction(q_table,t_x,t_y,try_tast = 0.9):
-    try_new_action_value = try_new_action()
+def get_t_direction(q_table,t_x,t_y,try_tast = 0.1):
+    try_new_action_value = try_new_action(try_tast)
     if try_new_action_value == 0:
         t_direction = random_direction()
     elif try_new_action_value == 1:
@@ -104,16 +117,14 @@ def get_t_direction(q_table,t_x,t_y,try_tast = 0.9):
 def t_add_loadcation(t_x,t_y,t_direction):
     limit_x = 10
 
-    if t_direction == 0 :
+    if t_direction == 0 and t_y >= 1: 
         t_y = t_y - 1
-        
-
-    elif t_direction == 1 and t_x < limit_x:
+    elif t_direction == 1 and t_x <=9:
         t_x = t_x + 1
 
-    elif t_direction == 2 :
-        t_y = t_y - 1
-    elif t_direction == 3 and t_x > 0:
+    elif t_direction == 2 and t_y<=9:
+        t_y = t_y + 1
+    elif t_direction == 3 and t_x >= 1:
         t_x = t_x - 1
     else:
         t_x = t_x
@@ -131,7 +142,7 @@ def t_add_loadcation(t_x,t_y,t_direction):
 # 6.輸出為 new_q_direction 為t位置時往t+1方向，新的Q值
 # 7.更新Qtable值
 
-def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , attenuation = 0.9 , study = 0.9):
+def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , attenuation = 0.95 , study = 0.95):
     
     reward = base_table[t_add_x,t_add_y]
     new_max_fraction = np.argmax(q_table[t_add_x,t_add_y])
@@ -145,7 +156,7 @@ def q_value_calculate(base_table,q_table,t_x,t_y,t_add_x,t_add_y, t_direction , 
 
 
 def train_q(train ,base_table,q_table):
-    train_n = 1
+    train_n = 0
     while train_n < train :
         train_t = 1
         t_x , t_y = random_start(base_table)
@@ -159,6 +170,7 @@ def train_q(train ,base_table,q_table):
             if base_table[t_add_x,t_add_y] == -100 or 100 :
                 train_t = 0
                 train_n = train_n + 1
+                break
             else :
                 continue
     else :
@@ -176,6 +188,7 @@ while start_value == 1:
     q_table = train_q(train,base_table,q_table)
     all_train = train
     print("預訓練完成")
+    print(q_table.ndim,"維")
 
     command_value = 1
     while command_value == 1:
@@ -197,8 +210,7 @@ while start_value == 1:
             print("未完成")
             continue
         elif command == 3:
-            print_table("Q_table",q_table,all_train)
-            print(q_table)
+            q_table_max_pain(q_table,base_rows,base_columns,all_train)
             continue
         elif command == 4:
             command_value = 0
@@ -208,11 +220,3 @@ while start_value == 1:
             start_value = 0
         else :
             continue
-
-
-
-
-
-
-
-
