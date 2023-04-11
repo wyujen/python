@@ -80,7 +80,6 @@ def random_start(base_table):
         z = base_table[t_x,t_y]
         if z == -1 :
             return t_x,t_y
-            output = 1
         else :
             continue
 
@@ -168,7 +167,7 @@ def train_q(train ,base_table,q_table):
             
             t_x = t_add_x
             t_y = t_add_y
-            if base_table[t_add_x,t_add_y] == -100 or 100 :
+            if base_table[t_add_x,t_add_y] == -100 or base_table[t_add_x,t_add_y] == 100 :
                 train_t = 0
                 train_n = train_n + 1
                 break
