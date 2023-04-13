@@ -25,6 +25,7 @@ def main():
     print("Hello")
     car1 = Car("Ford","Mustang",2010,"Blue")
     car2 = Car("Tesla","M3",2020,"Red",True)
+    car3 = car1
 #car1
     print("printing car1 details:".center(50,"-"))
     print("Make:{}".format(car1.make))
@@ -49,3 +50,4 @@ def main():
 
 if __name__ == '__main__': 
     main()
+    cr4 = Car
