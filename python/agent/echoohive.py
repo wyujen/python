@@ -60,5 +60,6 @@ if "memory" not in st.session_state:
 if st.button("Submit"):
     st.markdown(agent_chain.run(input=user_input))
 
-    st.session_state["memory"] += memory.buffer
+    st.session_state["memory"] += f"{memory.buffer}\n"
     print(st.session_state["memory"])
+    print(agent_chain._return)
