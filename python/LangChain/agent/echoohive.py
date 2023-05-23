@@ -2,8 +2,10 @@
 from langchain import OpenAI
 from langchain.agents import initialize_agent, Tool
 from langchain.chains.conversation.memory import ConversationBufferMemory
-import streamlit as st 
+import streamlit as st
+from langchain.utilities import GoogleSearchAPIWrapper
 
+search = GoogleSearchAPIWrapper()
 def fib(n):
     if n <= 1:
         return n 
@@ -25,6 +27,14 @@ def decrypt(word):
         decrypted_word += chr(ord(letter)-1)
     return(decrypted_word)
 
+def google_search(word):
+    result_search = search.run(word)
+    return result_search
+
+
+
+
+
 tools =  [
 Tool(
     name = "Fibonacci",
@@ -38,13 +48,18 @@ Tool(
         ),
 Tool(
     name = "Encrypt",
-    func = lambda word :encrypt(word),
+    func = lambda word :encypt(word),
     description = "use when you want to encrypt a word",
     ),
 Tool(
     name = "Decrypt",
     func = lambda word :decrypt(word),
     description = "use when you eant to decrypt a word",
+    ),
+Tool(
+    name = "Google Search",
+    func = lambda word : google_search(word),
+    description = "Search Google for recent results.",
     )
 ]
 
@@ -62,4 +77,4 @@ if st.button("Submit"):
 
     st.session_state["memory"] += f"{memory.buffer}\n"
     print(st.session_state["memory"])
-    print(agent_chain._return)
+    #print(agent_chain._return)
