@@ -1,0 +1,37 @@
+<h2>使用者資料</h2>
+
+
+
+
+<label>姓名：</label>
+<input [(ngModel)]="name"/>
+<br>
+<label>年紀：</label>
+<input type="number" [(ngModel)]="age" />
+<br>
+<label>姓別：</label>
+<input type="radio" name="sex" value="men" [(ngModel)]="sex" >男
+<input type="radio" name="sex" value="not men" [(ngModel)]="sex" >女
+<br>
+<label>國籍：</label>
+<select [(ngModel)]="country" >
+    <option>請選擇國家</option>
+    <option value="Taiwan">台灣</option>
+    <option value="Taiwan outlying island">西台灣</option>
+    <option value="U.S.A">美國</option>
+</select>
+<br>{{message}}<br>
+
+<button type="button" (click)="save()">save</button>
+
+<h3>目前輸入資訊</h3>
+    <a>user name : {{name}}</a>
+    <br>
+    <a>age : {{age}}</a>
+    <br>
+    <a>sex : {{sex}}</a>
+    <br>
+    <a>country : {{country}}</a>
+    
+<br><br>
+    <button routerLink="" >back</button>
