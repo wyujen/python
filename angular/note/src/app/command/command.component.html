@@ -1,0 +1,50 @@
+<h2>基本指令</h2>
+    <button routerLink="/home">back homepage</button>
+    <div>
+        <h3>1. 建立新專案</h3>
+        <p>
+            1. cd 到資料夾中後<br />
+            2. ng new -yourprojectname-<br />
+            3. y  (是否建立 app-routing.ts) <br />
+            4. 什麼型式的css
+        </p>
+    </div>
+    <div>
+        <h3>2. 建立component</h3>
+        <p>
+            cd 到資料夾中後<br />
+            ng g c -yourcomponentname-
+        </p>
+    </div>
+    <div>
+        <h3>3. routing 切換頁面</h3>
+        
+        
+            1. 建立app-routing.ts<br />
+            2. 在 routing.ts 中匯入commponent頁面
+            <pre><code>
+    {{"
+---in routing.ts---
+import { HomepageComponent } from './homepage/homepage.component';
+import { CommandComponent } from './command/command.component';
+    "}}
+</code></pre>
+            3.建立網址轉至comppnent
+<pre><code>
+    {{"
+---in routing.ts---
+const routes: Routes = [
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: 'home', component: HomepageComponent},
+    {path: 'command', component: CommandComponent}, ];    
+    "}}
+</code></pre>
+            4.於HTML中建立標籤
+<pre><code>
+    {{"
+---in app.component.html---
+&lt;router-outlet&gt;&lt;/router-outlet&gt;
+    "}}
+    </code></pre>
+            
+    </div>

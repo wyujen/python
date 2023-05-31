@@ -1,3 +1,28 @@
 <p>two works!</p>
+
+<!-- <input type="text" [(ngModel)]="name"/> -->
+
+
+<form #form="ngForm" (submit)="onSubmit(form)">
+    <div>
+        姓名：<input type="text" name="name" #name="ngModel" ngModel/><br>
+        年紀：<input type="text" type= "number" name="age" #age="ngModel" ngModel/><br>
+        性別：<input type="radio" name="sex" value="men" #sex="ngModel" ngModel >男
+        <input type="radio" name="sex" value="not men" #sex="ngModel"ngModel >女<br>
+        <!-- <input type="text" name="country" #country="ngModel" ngModel/><br> -->
+        國家：<select name="country" #country="ngModel" ngModel >
+            <option>請選擇國家</option>
+            <option value="Taiwan">台灣</option>
+            <option value="Taiwan outlying island">西台灣</option>
+            <option value="U.S.A">美國</option>
+        </select><br/>
+        <button type="submit">save</button>
+        <button type="reset">reset</button>
+    </div>
+
+</form>
+<pre>{{ form.value |json }}</pre>
+
+
 <br><br>
     <button routerLink="" >back</button>

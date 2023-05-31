@@ -1,0 +1,53 @@
+<p>inputproject works!</p>
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label>專案編號：
+            <input type="number" formControlName="id"/>
+        </label>
+        <label>訂單編號：
+            <input type="number" formControlName="ordernumber"/>
+        </label>
+        <label>採購編號：
+            <input type="number" formControlName="pruchasenumber"/><br/>
+        </label>
+    </div>
+    <div>
+        <label>沖壓日期：
+            <input type="date" formControlName="processingdate"/>
+        </label>
+        <label>納期：
+            <input type="date" formControlName="duedate"/>
+        </label><br/>
+    </div>
+        
+    <div>
+        <label>品番號碼：
+            <select formControlName="product">
+            <option *ngFor="let product of products " [ngValue]="product">{{product.id}}{{product.name}}{{product.longid}}</option>
+            </select>
+            <p>庫存數量：{{projectForm.value.product.productstock}}</p>
+            <p>材料重量：{{projectForm.value.product.materialstock}}</p>
+            <p>可產數量：{{projectForm.value.product.materialstock/15}}</p>
+        </label><br/>
+    </div>
+
+
+    <div>
+        <label>客戶：
+            <select formControlName="user">
+            <option *ngFor="let user of users " [ngValue]="user">{{user.name}}</option>
+            
+            </select>
+            <p>電話：{{projectForm.value.user.phonenumber}}</p>
+            
+        </label>
+        <label>下單數量：
+            <input type="number" formControlName="quantity"/><br/>
+        </label>
+    </div>
+    <br/>
+    <div>
+        <button type="submit">save</button>
+    </div>
+    <br/>
+</form>
