@@ -1,15 +1,23 @@
 <p>inputproject works!</p>
+<p style="color :red">專案編號、品番號碼、客戶、下單數量為必填</p>
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
     <div>
         <label>專案編號：
             <input type="number" formControlName="id"/>
-        </label>
+            <a style="color: red;" *ngIf="(projectForm.controls['id'].errors?.['minlength'] 
+            || projectForm.controls['id'].errors?.['maxlength'] || projectForm.controls['id'].invalid)
+                && (projectForm.controls['id'].dirty || projectForm.controls['id'].touched)">
+            專案編號為必填，且應為5碼數字
+            </a>
+        </label><br/>
         <label>訂單編號：
-            <input type="number" formControlName="ordernumber"/>
+            <input formControlName="ordernumber"/>
         </label>
         <label>採購編號：
-            <input type="number" formControlName="pruchasenumber"/><br/>
+            <input formControlName="pruchasenumber"/><br/>
         </label>
+        
+
     </div>
     <div>
         <label>沖壓日期：
@@ -47,7 +55,7 @@
     </div>
     <br/>
     <div>
-        <button type="submit">save</button>
+        <button type="submit" [disabled]="projectForm.invalid">save</button>
     </div>
-    <br/>
+
 </form>
