@@ -8,13 +8,15 @@ import { ProjectdetailComponent } from './projectdetail/projectdetail.component'
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { FormTwoComponent } from './form-two/form-two.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputprojectComponent,
     ProjectdetailComponent,
-    HomeComponent
+    HomeComponent,
+    FormTwoComponent
   ],
   imports: [
     BrowserModule,

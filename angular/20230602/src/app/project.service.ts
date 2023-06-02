@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { UTS, USERS, PRODUCTS } from './fakedata';
 import { Ut, User, Product } from './utproject.interface'
-
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class projectService {
-
+export class ProjectService {
   Uts = UTS
   Users = USERS
   Products = PRODUCTS
@@ -32,4 +28,3 @@ export class projectService {
 
   constructor() { }
 }
-

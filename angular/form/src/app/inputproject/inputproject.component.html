@@ -8,7 +8,7 @@
             || projectForm.controls['id'].errors?.['maxlength'] || projectForm.controls['id'].invalid)
                 && (projectForm.controls['id'].dirty || projectForm.controls['id'].touched)">
             專案編號為必填，且應為5碼數字
-            </a>
+        </a>
         </label><br/>
         <label>訂單編號：
             <input formControlName="ordernumber"/>
@@ -36,6 +36,7 @@
             <p>庫存數量：{{projectForm.value.product.productstock}}</p>
             <p>材料重量：{{projectForm.value.product.materialstock}}</p>
             <p>可產數量：{{projectForm.value.product.materialstock/15}}</p>
+            
         </label><br/>
     </div>
 
@@ -50,7 +51,9 @@
             
         </label>
         <label>下單數量：
-            <input type="number" formControlName="quantity"/><br/>
+            <input type="number" formControlName="quantity"/>
+            <a style="color: red;" *ngIf=" projectForm.controls['quantity'].invalid
+                && (projectForm.controls['quantity'].dirty || projectForm.controls['quantity'].touched)">請填寫下單數量 </a><br/>
         </label>
     </div>
     <br/>

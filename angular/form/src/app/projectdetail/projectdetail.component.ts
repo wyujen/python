@@ -19,7 +19,7 @@ export class ProjectdetailComponent implements OnInit {
   }
 
   getuts(): void {
-    this.projectService.getUts()
-        .subscribe(UTS => this.Uts = UTS);
+    this.Uts =this.projectService.getUts()
+
   }
 }

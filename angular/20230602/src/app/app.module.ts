@@ -1,30 +1,25 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { UserComponent } from './user/user.component';
-import { TwoComponent } from './two/two.component';
-import { HomeComponent } from './home/home.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+import { InputProjectComponent } from './input-project/input-project.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { FirComponent } from './fir/fir.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-
-    UserComponent,
-    TwoComponent,
-    HomeComponent,
-    RxjsComponent
+    InputProjectComponent,
+    ProjectDetailComponent,
+    FirComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
-    
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

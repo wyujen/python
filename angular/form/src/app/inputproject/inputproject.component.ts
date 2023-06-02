@@ -10,16 +10,16 @@ import { projectService } from '../project.service';
   templateUrl: './inputproject.component.html',
   styleUrls: ['./inputproject.component.css']
 })
-export class InputprojectComponent {
+export class InputprojectComponent  {
   projectForm!: FormGroup;
   ut!:Ut
   products=PRODUCTS;
   users=USERS;
   constructor(
-    private formBuilder: FormBuilder,
+    private _formBuilder: FormBuilder,
     private projectService: projectService
     ) {
-      this.projectForm = this.formBuilder.group({
+      this.projectForm = this._formBuilder.group({
       
         id: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
         ordernumber: '',
@@ -28,14 +28,14 @@ export class InputprojectComponent {
         processingdate: new Date(),
         duedate: new Date(),
     
-        product:this.formBuilder.group({
-            id: ['',Validators.required],
-            name: "",
-            longid: "",
-            productstock: null,
-            materialstock: null
+        product:this._formBuilder.group({
+            id: '',
+            name: '',
+            longid: '',
+            productstock: '',
+            materialstock: ''
             }),
-        user: this.formBuilder.group({ 
+        user: this._formBuilder.group({ 
           id:['',Validators.required],
           name: '',
           phonenumber: ''}),
@@ -47,12 +47,14 @@ export class InputprojectComponent {
         this.projectForm.controls['id'].setValue(String(value), { emitEvent: false });
       });
     };
-
+    
 
   
     onSubmit(){
       this.ut = this.projectForm.value
       this.projectService.addUt(this.ut)
+
+      
     }
 
 }

@@ -1,0 +1,62 @@
+<p>form-two works!</p>
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label>專案編號：
+            <input formControlName ="id"/>
+            <a style="color: red;" *ngIf="(projectForm.controls['id'].errors?.['minlength'] 
+            || projectForm.controls['id'].errors?.['maxlength'] )
+                && (projectForm.controls['id'].dirty || projectForm.controls['id'].touched)">
+            專案編號為必填，且應為5碼數字</a>
+        </label>
+    </div>
+    <label>訂單編號：
+        <input formControlName="ordernumber"/>
+    </label>
+    <label>採購編號：
+        <input formControlName="pruchasenumber"/><br/>
+    </label>
+
+    <div>
+        <label>沖壓日期：
+            <input type="date" formControlName="processingdate"/>
+        </label>
+        <label>納期：
+            <input type="date" formControlName="duedate"/>
+        </label><br/>
+    </div>
+
+    <div>
+        <label>品番號碼：
+            <select formControlName="product">
+            <option *ngFor="let product of Products " [ngValue]="product">{{product.id}}{{product.name}}{{product.longid}}</option>
+            </select>
+            <p>庫存數量：{{projectForm.value.product?.productstock}}</p>
+            <p>材料重量：{{projectForm.value.product?.materialstock}}</p>
+            <p>可產數量：{{(projectForm.value.product?.materialstock!)/15}}</p>
+        
+        </label><br/>
+    </div>
+
+    <div>
+        <label>客戶：
+            <select formControlName="user">
+            <option *ngFor="let user of Users " [ngValue]="user">{{user.name}}</option>
+            
+            </select>
+            <p>電話：{{projectForm.value.user?.phonenumber}}</p>
+            
+        </label>
+    </div>
+
+    <label>下單數量：
+        <input type="number" formControlName="quantity"/>
+        <a style="color: red;" *ngIf=" projectForm.controls['quantity'].invalid
+            && (projectForm.controls['quantity'].dirty || projectForm.controls['quantity'].touched)">請填寫下單數量 </a><br/>
+    </label>
+
+    <div>
+        <button type="submit" [disabled]="projectForm.invalid">save</button>
+    </div>
+
+</form>
