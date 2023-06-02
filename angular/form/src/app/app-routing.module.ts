@@ -6,10 +6,8 @@ import { ProjectdetailComponent } from './projectdetail/projectdetail.component'
 import { FormTwoComponent } from './form-two/form-two.component';
 
 const routes: Routes = [
-  // {path: '', redirectTo: '/home', pathMatch:'full'},
-  // {path: 'home', component: HomeComponent},
-  // {path: 'detail', component: ProjectdetailComponent},
-  // {path: 'inputproject', component: FormTwoComponent }
+  {path: 'inputproject', component: InputprojectComponent},
+  {path: 'projectdetail', component: ProjectdetailComponent}
   
 ];
 

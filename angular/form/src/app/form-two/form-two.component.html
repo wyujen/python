@@ -4,10 +4,8 @@
     <div>
         <label>專案編號：
             <input formControlName ="id"/>
-            <a style="color: red;" *ngIf="(projectForm.controls['id'].errors?.['minlength'] 
-            || projectForm.controls['id'].errors?.['maxlength'] )
-                && (projectForm.controls['id'].dirty || projectForm.controls['id'].touched)">
-            專案編號為必填，且應為5碼數字</a>
+            <a style="color: red;" *ngIf="projectForm.controls['id'].invalid && projectForm.controls['id'].dirty">
+                專案編號為必填，且應為5碼數字</a>
         </label>
     </div>
     <label>訂單編號：
@@ -51,8 +49,8 @@
 
     <label>下單數量：
         <input type="number" formControlName="quantity"/>
-        <a style="color: red;" *ngIf=" projectForm.controls['quantity'].invalid
-            && (projectForm.controls['quantity'].dirty || projectForm.controls['quantity'].touched)">請填寫下單數量 </a><br/>
+        <a style="color: red;" *ngIf="projectForm.controls['quantity'].invalid && projectForm.controls['quantity'].dirty">
+            請填寫下單數量</a><br/>
     </label>
 
     <div>

@@ -1,0 +1,10 @@
+<h1>projectdetail</h1>
+<div *ngFor="let ut of Uts">
+    <p>=================={{ut.id}}==================</p>
+    <p>專案編號：{{ut.id}}  訂單編號：{{ut.ordernumber}} 採購編號：{{ut.pruchasenumber}}</p>
+    <p>沖壓日期：{{ut.processingdate}}</p>
+    <p>納期：{{ut.duedate}}</p>
+    <p>品番號碼： {{ut.product.id}}{{ut.product.name}}{{ut.product.longid}}</p>
+    <p>庫存數量：{{ut.product.productstock}}  材料重量：{{ut.product.materialstock}}可產數量：{{ut.product.materialstock/15}}</p>
+    <p>客戶資料：{{ut.user.name}}  電話：{{ut.user.phonenumber}}</p>
+</div>

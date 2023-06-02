@@ -61,7 +61,7 @@ export class FormTwoComponent implements OnInit {
 
   getproducts():void{
     this.Products = this._projectService.getProducts()
-      
+
   }
 
 }

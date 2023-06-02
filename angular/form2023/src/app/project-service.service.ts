@@ -5,17 +5,16 @@ import { Ut, User, Product } from './utproject.interface'
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
+export class ProjectServiceService {
+
   Uts = UTS
   Users = USERS
   Products = PRODUCTS
 
-  addUt(ut:Ut):void {
-    this.Uts.push(ut)
-  }
-  
+  constructor() { }
+
   getUts ():Ut[]{
-  return this.Uts
+    return this.Uts
   }
 
   getUsers():User[]{
@@ -26,5 +25,7 @@ export class ProjectService {
     return this.Products
   }
 
-  constructor() { }
+  addUt(ut:Ut):void {
+    this.Uts.push(ut)
+  }
 }

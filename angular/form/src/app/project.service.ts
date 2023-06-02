@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { UTS, USERS, PRODUCTS } from './fakedata';
 import { Ut, User, Product } from './utproject.interface'
 
