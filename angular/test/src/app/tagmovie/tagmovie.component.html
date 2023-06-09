@@ -1,0 +1,6 @@
+<p>tagmovie works!</p>
+<h1>MoviesList</h1>
+<div *ngFor="let movie of moviesOutput | async">
+  <label>電影名稱：{{movie.name}}</label><br>
+  <label>標籤：{{movie.tagNames.join(', ')}}</label>
+</div>

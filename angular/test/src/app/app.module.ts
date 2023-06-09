@@ -9,16 +9,16 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { TwoComponent } from './two/two.component';
 import { HomeComponent } from './home/home.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
+
+import { TagmovieComponent } from './tagmovie/tagmovie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-
     UserComponent,
     TwoComponent,
     HomeComponent,
-    RxjsComponent
+    TagmovieComponent
   ],
   imports: [
     BrowserModule,

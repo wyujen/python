@@ -13,6 +13,7 @@ export class RxjsComponent implements OnInit, OnDestroy {
   B: BehaviorSubject<number> = new BehaviorSubject(0)
   c: number[] = [1, 2, 3, 4, 5]
   d: Observable<number> = from(this.c)
+  
   e = this.d.pipe(
     map((n) => {
       return n + 1
