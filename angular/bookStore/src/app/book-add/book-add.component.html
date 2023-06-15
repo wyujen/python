@@ -9,6 +9,14 @@
             <input formControlName="writer"/>
         </label><br/>
         
-        <button type="submit">save</button>
+        <div>
+            <label>書籍標籤:</label>
+            <div class="checkbox">
+                <label *ngFor="let tag of tags" class="checkbox-inline">
+                    <input type="checkbox" (click)="tagCheckbox(tag.id)"/>
+                    {{tag.name}}</label>
+            </div>
+        </div>
+        <button type="submit" [disabled]="bookForm.invalid">save</button>
     </form>
 </div>

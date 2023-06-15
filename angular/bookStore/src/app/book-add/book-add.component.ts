@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book, Tag } from '../_data/_book.interface';
-import { FormBuilder } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 import { Location } from '@angular/common';
 import { BookService } from '../book.service';
 import { interval } from 'rxjs';
@@ -19,8 +19,8 @@ export class BookAddComponent implements OnInit {
 
   bookForm = this._fb.group({
     id:[0],
-    name: [''],
-    writer: [''],
+    name: ['',Validators.required],
+    writer: ['',Validators.required],
     bookTagId: [[] as number[]]
 
   })
@@ -36,9 +36,10 @@ export class BookAddComponent implements OnInit {
   ngOnInit(): void {
     this._bookService.genId().subscribe(id => {
       this.newId = id
+      this.bookForm.get('id')?.setValue(id);
       console.log("id====> ", id)
     })
-    this._bookService.getBooks().subscribe(tags => this.tags = tags)
+    this._bookService.getTags().subscribe(tags => this.tags = tags)
 
 
   }
@@ -55,9 +56,27 @@ export class BookAddComponent implements OnInit {
       console.log("書籍已成功添加");
       this.goBack()
     });
-
   }
+  tagCheckbox(tagId: number){
+    console.log(this.bookForm.value.bookTagId);
+    console.log(tagId)
+    let bookTagId = this.bookForm.value.bookTagId||[];
+
+    if (!this.bookForm.value.bookTagId!.includes(tagId)){
+      bookTagId.push(tagId);
+      bookTagId.sort()
+      this.bookForm.controls['bookTagId'].setValue(bookTagId)
+      console.log("if",bookTagId);
+
+    }else if (this.bookForm.value.bookTagId!.includes(tagId)){
   
+      bookTagId = bookTagId.filter((tag) => tag !== tagId)
+      this.bookForm.controls['bookTagId'].setValue(bookTagId)
+      console.log("else if ",bookTagId)
+    }
+  }
   
 
 }
+
+
