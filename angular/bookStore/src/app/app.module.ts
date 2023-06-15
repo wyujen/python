@@ -13,6 +13,8 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookAddComponent } from './book-add/book-add.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TagListComponent } from './tag-list/tag-list.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { FormsModule } from '@angular/forms';
     
     BookDetailComponent,
     BookAddComponent,
-    HomePageComponent
+    HomePageComponent,
+    TagListComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )

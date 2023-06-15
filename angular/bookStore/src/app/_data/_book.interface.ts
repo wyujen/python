@@ -8,4 +8,14 @@ export interface Book{
 export interface Tag{
     id:number;
     name:string;
+    tagBooks?: Book[]; 
+    
+}
+
+export interface TagList{
+    id:number;
+    name:string;
+    tagBooks: Book[]; 
+    
+
 }

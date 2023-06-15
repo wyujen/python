@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { BookService } from '../book.service';
-import { Book } from '../_data/_book.interface';
+import { Book, Tag } from '../_data/_book.interface';
+import { combineLatest, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-book-detail',
@@ -14,6 +15,8 @@ export class BookDetailComponent implements OnInit {
 
   id?: number;
   book?: Book
+  tags?: Tag[]
+  booktagname?:string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +26,16 @@ export class BookDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get("id") || '')
-    this._bookService.getBook(this.id).subscribe(book => this.book = book)
+    
+    forkJoin({
+      book: this._bookService.getBook(this.id),
+      tags: this._bookService.getTags()
+    }).subscribe(results => {
+      this.book = results.book;
+      this.tags = results.tags;
+      this.booktagname = results.book.bookTagId?.map(id => results.tags.find(tag => tag.id === id)?.name || '')||[];
+    });
+    
   }
 
   goBack() {
@@ -34,9 +46,13 @@ export class BookDetailComponent implements OnInit {
     if(this.book){
       this._bookService.updateBook(this.book)
         .subscribe(()=> this.goBack())
-        
     }
   }
 
-
+  delete(){
+    if (this.book){
+      this._bookService.deleteBook(this.book.id)
+        .subscribe(()=> this.goBack())
+    }
+  }
 }

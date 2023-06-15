@@ -1,1 +1,14 @@
 <p>book-add works!</p>
+<div >
+    <form [formGroup]="bookForm" (ngSubmit)="OnSubmit()">
+        <p>ID：{{newId}}</p>
+        <label>書名：
+            <input formControlName="name"/>
+        </label><br/>
+        <label>作者：
+            <input formControlName="writer"/>
+        </label><br/>
+        
+        <button type="submit">save</button>
+    </form>
+</div>

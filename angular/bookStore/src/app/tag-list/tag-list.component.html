@@ -1,0 +1,10 @@
+<p>tag-list works!</p>
+<div *ngFor="let tag of tags">
+    <p>
+        {{tag.id}}.{{tag.name}}
+    </p>
+    <a *ngFor='let book of tag.tagBooks'
+        routerLink="/detail/{{book.id}}">
+        <li>{{book.name}}</li><br/>
+    </a>
+</div>

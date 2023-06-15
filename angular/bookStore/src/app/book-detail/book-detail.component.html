@@ -5,5 +5,14 @@
 <div *ngIf="book">
     作者：
     <input [(ngModel)]="book.writer">
+
 </div>
-<button type="button" (click)="save()">save</button>
+
+<div >
+    <label>標籤：
+        {{booktagname}}
+    </label>
+    
+</div><br/>
+<button type="button" (click)="save()">save</button><br/><br/>
+<button type="button" (click)="delete()">delete</button>
