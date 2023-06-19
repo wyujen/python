@@ -11,6 +11,8 @@ import { TwoComponent } from './two/two.component';
 import { HomeComponent } from './home/home.component';
 
 import { TagmovieComponent } from './tagmovie/tagmovie.component';
+import { ChildInputComponent } from './input/child-input/child-input.component';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { TagmovieComponent } from './tagmovie/tagmovie.component';
     UserComponent,
     TwoComponent,
     HomeComponent,
-    TagmovieComponent
+    TagmovieComponent,
+    ChildInputComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,

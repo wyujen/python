@@ -1,0 +1,16 @@
+<p>input works!</p>
+<h1>
+    使用ngFor顯示陣列內容
+</h1>
+<app-child-input [inputDefaultHero]="newHero" (outputAddHero)="getNewHeroFromAnotherComponent($event)"></app-child-input>
+<div *ngFor="let hero of heros">
+    <div>
+        名字: 
+        {{hero.name}}
+    </div>
+    <div>
+        年齡: {{hero.age}}
+    </div>
+    ===========
+</div>
+ 
