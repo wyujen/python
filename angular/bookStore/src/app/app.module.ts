@@ -15,6 +15,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TagListComponent } from './tag-list/tag-list.component';
+import { ListComponent } from './book-list/list/list.component';
+import { DetailComponent } from './book-list/list/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { TagListComponent } from './tag-list/tag-list.component';
     BookDetailComponent,
     BookAddComponent,
     HomePageComponent,
-    TagListComponent
+    TagListComponent,
+    ListComponent,
+    DetailComponent
   ],
   imports: [
     FormsModule,

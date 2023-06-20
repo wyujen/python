@@ -1,0 +1,17 @@
+<p>list works!</p>
+<div >
+    <div *ngFor = 'let book of Books; index as i' >
+        <input type="checkbox" [value]='book' (click)="updatetempdelete(book)" >
+        {{book.name}}
+        <button (click)= 'selectbook(book)'>詳</button>
+    </div>
+</div>
+
+<div >
+    <app-detail 
+    [book] = 'detailbook'
+    [tags] = 'tags'
+    (detailSave)="detailsave($event)"
+    (detailDelete)="detaildelete($event)"></app-detail>
+
+</div>

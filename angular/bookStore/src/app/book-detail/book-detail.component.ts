@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { combineLatest, forkJoin } from 'rxjs';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-
+  @Input() oneBook?: Book 
   id?: number;
   book?: Book
   tags?: Tag[]
