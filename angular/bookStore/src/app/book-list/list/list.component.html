@@ -1,7 +1,14 @@
 <p>list works!</p>
-<div >
+<div *ngIf="getEditValue()==false">
     <div *ngFor = 'let book of Books; index as i' >
-        <input type="checkbox" [value]='book' (click)="updatetempdelete(book)" >
+        {{book.name}}
+        <button (click)= 'selectbook(book)'>詳</button>
+    </div>
+</div>
+
+<div *ngIf="getEditValue()==true">
+    <div *ngFor = 'let book of Books; index as i' >
+        <input  type="checkbox" [value]='book' (click)="updatetempdelete(book)" >
         {{book.name}}
         <button (click)= 'selectbook(book)'>詳</button>
     </div>

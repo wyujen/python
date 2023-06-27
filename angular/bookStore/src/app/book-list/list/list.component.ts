@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Validators } from '@angular/forms';
 
 import { Book, Tag } from 'src/app/_data/_book.interface';
 
@@ -9,18 +10,30 @@ import { Book, Tag } from 'src/app/_data/_book.interface';
 })
 export class ListComponent {
 @Input() Books?: Book[]  
-@Input() tags?: Tag[] 
+@Input() tags?: Tag[]
+@Input() editValue?: boolean
 
 
 @Output() detailSave = new EventEmitter();
 @Output() detailDelete = new EventEmitter();
 @Output() lotDelete = new EventEmitter();
 
-tempDelete:Book[] = [];
-
-
+  tempDelete:Book[] = [];
   detailbook? : Book
 
+
+  
+  
+  constructor (){}
+
+  getEditValue(){
+    if(this.editValue==true){
+      return true
+    }else{
+      this.tempDelete=[]
+      return false
+    }
+  }
   updatetempdelete (book: Book){
     this.detailbook = undefined
     if (!this.tempDelete.includes(book)){
@@ -45,6 +58,7 @@ tempDelete:Book[] = [];
 
   detailsave(book:Book){
     this.detailSave.emit(book)
+    console.log('fa',book)
     this.tempDelete = []
     this.detailbook = undefined;
   }

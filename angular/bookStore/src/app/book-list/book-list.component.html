@@ -1,14 +1,16 @@
 <p>book-list works!</p>
-<!-- <div>
-    <a *ngFor = 'let book of Books'
-        routerLink="/detail/{{book.id}}">
-        {{book.name}}<br />
-    </a>
-</div> -->
-<button type="button" (click)="lotdelete()">delete</button>
+<div *ngIf="editValue == false">
+    <button type="button" (click)="setEdit()">edit</button>
+</div>
+<div *ngIf="editValue == true">
+    <button type="button" (click)="setEdit()">cancel</button>
+    <button type="button" (click)="lotdelete()">delete</button>
+</div>
+
 <app-list 
     [Books]="Books"
     [tags]="tags"
+    [editValue]="editValue"
     (detailSave)="detailsave($event)"
     (detailDelete)="detaildelete($event)"
     (lotDelete)="tempdelete($event)"></app-list>

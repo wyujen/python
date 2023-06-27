@@ -1,11 +1,24 @@
 <p>detail works!</p>
-<div *ngIf="book">
-    書名：<input [(ngModel)]="book.name"><br />
-    作者：<input [(ngModel)]="book.writer"><br/>
-    標籤：<div *ngFor="let tag of tags">
-        <input type="checkbox" [checked]="tagchick(tag.id)" (click)="checkboxselect(tag.id)">{{tag.name}}
-    </div><br/>
-    <button type="button" (click)="detailsave()">save</button>
-    <button type="button" (click)="detaildelect()">delete</button>
 
-</div>
+<form [formGroup]="bookForm" (ngSubmit)="detailsave()">
+    <div *ngIf="book">
+        <label>
+            書名：<input formControlName="name">
+        </label><br />
+        
+        <label>
+            作者：<input formControlName="writer">
+        </label><br />
+
+        <label >
+            標籤：
+            <div *ngFor="let tag of tags">
+                <input type ="checkbox" [checked]="tagchick(tag.id)" (click)="checkboxselect(tag.id)">{{tag.name}}
+            </div>
+        </label><br />
+        
+        <button type="submit">save</button>
+        <button type="button" (click)="detaildelect()">delete</button>
+    </div>
+</form>
+

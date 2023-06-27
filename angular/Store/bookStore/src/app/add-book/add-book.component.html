@@ -1,0 +1,23 @@
+<p>add-book works!</p>
+<p>book-add works!</p>
+<div >
+    <form [formGroup]="bookForm" (ngSubmit)="addBook($event)">
+        
+        <label>書名：
+            <input formControlName="name"/>
+        </label><br/>
+        <label>作者：
+            <input formControlName="writer"/>
+        </label><br/>
+        <!-- <div>
+            <label>書籍標籤:</label>
+            <div class="checkbox">
+                <label *ngFor="let tag of tags" class="checkbox-inline">
+                    <input type="checkbox" (click)="tagCheckbox(tag.id)"/>
+                    {{tag.name}}</label>
+            </div>
+        
+        </div> -->
+        <button type="submit" [disabled]="bookForm.invalid">save</button>
+    </form>
+</div>

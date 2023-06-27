@@ -14,6 +14,7 @@ export class BookListComponent implements OnInit {
   Books?: Book[];
   tags?: Tag[];
   tempDelete?:Book[]
+  editValue : boolean=false
 
   
   constructor(
@@ -26,9 +27,20 @@ export class BookListComponent implements OnInit {
     
   }
 
+  setEdit(){
+    if(this.editValue==false){
+      this.editValue = true;
+    }else{
+      this.editValue = false;
+    }
+  }
+
   detailsave(book:Book){
     console.log(book)
     this._bookService.updateBook(book).subscribe()
+    this._bookService.getBooks().subscribe(books => this.Books = books)
+    
+    
   }
 
   detaildelete(book:Book){
