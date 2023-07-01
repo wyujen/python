@@ -62,7 +62,7 @@ export class BookListComponent implements OnInit {
       this._bookService.getBooks().subscribe(books => this.Books = books);
       
     });
-    console.log("11111")
+    
   }}
     
 

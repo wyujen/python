@@ -1,0 +1,10 @@
+<p>data-set-list works!</p>
+
+<div *ngFor = " let dataset of dataSets" (click) = 'setImage(dataset)' routerLink="/image" >
+    <li>
+        {{dataset.name}}&nbsp;
+        {{dataset.description}}&nbsp;
+        {{dataset.image.length}}
+        {{dataset.isEdited}}
+    </li>
+</div>

@@ -1,0 +1,6 @@
+<p>photo works!</p>
+
+<button (click)="nextPhoto(-1)">上一張</button>
+<button (click)="nextPhoto(1)">下一張</button>
+<br><img [src]="(actionPhoto$| async)?.url" width="40%" height="40%">
+

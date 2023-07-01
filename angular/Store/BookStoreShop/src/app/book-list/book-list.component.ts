@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Book, BookStore } from '../book.store';
 
 @Component({
@@ -10,9 +10,11 @@ import { Book, BookStore } from '../book.store';
 export class BookListComponent implements OnInit {
 
   books$: Observable<Book[]>;
+  carBooks$: Observable<Book[]>;
 
   constructor(private bookStore: BookStore) {
     this.books$ = this.bookStore.books$
+    this.carBooks$ = this.bookStore.carbook$
   }
   ngOnInit(): void {
   }
@@ -25,6 +27,12 @@ export class BookListComponent implements OnInit {
     } else { this.bookStore.removeFromCart(book) }
   }
   title = 'BookStoreShop';
+
+  getCheckedValue(bookId:string):Observable<boolean>{
+    return this.carBooks$.pipe(
+      map(books =>books.some(book=>book.id ===bookId))
+    )
+  }
 
 
 }

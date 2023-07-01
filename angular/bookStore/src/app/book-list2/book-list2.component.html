@@ -1,4 +1,8 @@
 <p>book-list2 works!</p>
-<li *ngFor="let book of (books$ | async)">
-    {{ book.name }}
-</li>
+<p *ngFor="let book of books$ |async">{{book.name}}
+    <button type="button" (click) = 'setDetail(book)'>編輯</button>
+</p>
+
+<div *ngIf="bookDetailValue$ |async">
+    <app-book-detail2></app-book-detail2>
+</div>

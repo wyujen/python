@@ -7,13 +7,15 @@ import { BookListComponent } from './book-list/book-list.component';
 import { ShopCarComponent } from './shop-car/shop-car.component';
 import { ShopCarPageComponent } from './shop-car-page/shop-car-page.component';
 import { BookStore } from './book.store';
+import { PhotoComponent } from './photo/photo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookListComponent,
     ShopCarComponent,
-    ShopCarPageComponent
+    ShopCarPageComponent,
+    PhotoComponent
   ],
   imports: [
     BrowserModule,

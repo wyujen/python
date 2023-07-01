@@ -1,3 +1,4 @@
+import { NodeWithI18n } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, of, switchMap, tap } from 'rxjs';
@@ -35,17 +36,36 @@ export class BookStore extends ComponentStore<BookCsState> {
   // ==select==========
 
   // ==========updater==
-  readonly addBooks = this.updater((currentState, newBooks: Book[]) => {
-    // 將書本轉成物件
-    const newBookEntries = newBooks.reduce((entries, book) => ({ ...entries, [book.id]: book }), {});
-    // 合併新書和當前書
-    const mergedBookEntries = { ...currentState.bookEnties, ...newBookEntries };
-    // 返回新的狀態
-    return {
-      ...currentState,
-      bookEnties: mergedBookEntries
-    };
+  // readonly addBooks = this.updater((currentState, newBooks: Book[]) => {
+  //   // 將書本轉成物件
+  //   const newBookEntries = newBooks.reduce((entries, book) => ({ ...entries, [book.id]: book }), {});
+  //   // 合併新書和當前書
+  //   const mergedBookEntries = { ...currentState.bookEnties, ...newBookEntries };
+  //   // 返回新的狀態
+  //   return {
+  //     ...currentState,
+  //     bookEnties: mergedBookEntries
+  //   };
+  // });
+
+  readonly addBooks = this.updater((state, newBooks: Book[]) => {
+
+    const oldEntities = state.bookEnties
+
+    const newEntities = {...oldEntities}
+
+    // const currentState = state.bookEnties
+    newBooks.map((book) => {
+      newEntities[book.id] = book
+    });
+
+    const newState = {...state, bookEnties:newEntities}
+    // newState.bookEnties = newEntities
+    return newState
+    // return { ...state, bookEnties: currentState }
   });
+
+  
 
   readonly addToCart = this.updater((currentState, book: Book) => {
     // console.log(book)
@@ -59,7 +79,7 @@ export class BookStore extends ComponentStore<BookCsState> {
   });
 
   readonly removeFromCart = this.updater((currentState, book: Book) => {
-    console.log('de====>',book)
+    console.log('de====>', book)
     let newShopcar = { ...currentState.shopcar };
     delete newShopcar[book.id];
     return {

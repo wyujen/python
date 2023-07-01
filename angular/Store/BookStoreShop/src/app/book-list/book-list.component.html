@@ -1,7 +1,7 @@
 <p>book-list works!</p>
 <a routerLink="/car">car</a>
 <div *ngFor="let book of books$ |async">
-    <input type="checkbox" (change)="chickbook($event,book)" />
+    <input type="checkbox" (change)="chickbook($event,book)" [checked]="getCheckedValue(book.id) | async"/>
     {{book.name}}
 </div>
 <app-shop-car></app-shop-car>

@@ -17,7 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TagListComponent } from './tag-list/tag-list.component';
 import { ListComponent } from './book-list/list/list.component';
 import { DetailComponent } from './book-list/list/detail/detail.component';
+import { BookCompontentStore } from './book.componentStore';
 import { BookList2Component } from './book-list2/book-list2.component';
+import { BookDetail2Component } from './book-detail2/book-detail2.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { BookList2Component } from './book-list2/book-list2.component';
     TagListComponent,
     ListComponent,
     DetailComponent,
-    BookList2Component
+    BookList2Component,
+    BookDetail2Component,
+    
   ],
   imports: [
     FormsModule,
@@ -42,7 +47,7 @@ import { BookList2Component } from './book-list2/book-list2.component';
       InMemoryDataService, { dataEncapsulation: false }
     )
   ],
-  providers: [],
+  providers: [BookCompontentStore],
   bootstrap: [AppComponent]
 
   

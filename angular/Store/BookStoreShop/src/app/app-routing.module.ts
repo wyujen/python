@@ -4,9 +4,9 @@ import { BookListComponent } from './book-list/book-list.component';
 import { ShopCarComponent } from './shop-car/shop-car.component';
 
 const routes: Routes = [
-  {path: '',redirectTo:'/list',pathMatch:'full'},
-  {path: 'list', component:BookListComponent},
-  {path: 'car', component:ShopCarComponent}
+  // {path: '',redirectTo:'/list',pathMatch:'full'},
+  // {path: 'list', component:BookListComponent},
+  // {path: 'car', component:ShopCarComponent}
 ];
 
 @NgModule({

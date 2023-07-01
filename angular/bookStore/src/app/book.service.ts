@@ -39,7 +39,11 @@ export class BookService {
   }
 
   updateBook(book: Book):Observable<any>{
-    return this._http.put(this.booksUrl, book, this.httpOptions)
+    return this._http.put(this.booksUrl, book, this.httpOptions).pipe(
+      tap(()=>{
+        console.log("save book")
+      })
+    )
   }
 
   addBook(book:Book):Observable<Book>{
