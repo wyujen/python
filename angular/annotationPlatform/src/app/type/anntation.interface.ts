@@ -8,7 +8,7 @@ export interface DataSet {
     id: string;
     name: string;
     description: string;
-    isEdited:boolean,
+    
     image : Image[]
 
 }

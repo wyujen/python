@@ -18,7 +18,7 @@ const InitImageCsState = {
     isEdited: false
   },
   ImageIndex: 0,
-  finalImage :false
+  finalImage: false
 }
 
 @Injectable({
@@ -35,8 +35,8 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
 
   // ==========select===
   readonly actionImage$: Observable<Image> = this.select(state => (state.actionImage))
-  readonly Images$: Observable<Image[]> = this.select(state => (state.ImageEnties))
-  readonly finalImage$ : Observable<boolean> = this.select(state => (state.finalImage))
+  
+  readonly finalImage$: Observable<boolean> = this.select(state => (state.finalImage))
   readonly Index$: Observable<number> = this.select(state => (state.ImageIndex))
   // ==select===========
 
@@ -52,8 +52,8 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
     return InitImageCsState
   })
 
-  readonly setFinalImage = this.updater((state) =>{
-    return {...state, finalImage :true }
+  readonly setFinalImage = this.updater((state) => {
+    return { ...state, finalImage: true }
   })
 
   readonly setActionImage = this.updater((state) => {
@@ -120,7 +120,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
 
   readonly imagefinal = this.effect((void$: Observable<void>) => {
     return void$.pipe(
-      tap(()=> this.setFinalImage()),
+      tap(() => this.setFinalImage()),
     )
   })
   // ==effect===========

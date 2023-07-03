@@ -8,12 +8,12 @@ import { DataService } from '../data.service';
 
 export interface DataSetCsState {
   dataSetEnties: Record<string, DataSet>
-  editDatasetId: string
+
 }
 
 const InitDataSetCsState = {
   dataSetEnties: {},
-  editDatasetId: ''
+
 }
 @Injectable({
   providedIn: 'root'
@@ -30,10 +30,12 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
   }
 
   // ==========select===
+  
   readonly dataSets$: Observable<DataSet[]> = this.select(state => Object.values(state.dataSetEnties))
-  readonly editId$: Observable<string> = this.select(state => (state.editDatasetId))
+
   // ==select===========
   // ==========updater==
+
   readonly addDataSet = this.updater((state, dataset: DataSet[]) => {
     const nextDataSet = state.dataSetEnties
     dataset.map((dataset) => {
@@ -41,18 +43,6 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
     })
     return { ...state, dataSetEnties: nextDataSet }
   })
-
-  readonly seteditDatasetId = this.updater((state, editId: string) => {
-    return { ...state, editDatasetId: editId }
-  })
-
-
-  readonly restState = this.updater((state)=>{
-    return InitDataSetCsState
-  })
-
-
-
 
   // ==updater==========
 
@@ -66,20 +56,6 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
           tap((dataset) => this.addDataSet(dataset)))
       }))
   })
-
-  readonly updateImage$ = this.effect((taggat$: Observable<Image[]>) => {
-    return taggat$.pipe(
-      withLatestFrom(this.editId$),
-      tap(([images, id]) => {
-        this.dataService.updateDataSet(id, images);
-      }),
-      tap(()=>{
-        this.restState()
-        this.loadDataSet$()
-      })
-    )
-  });
-
 
   // ==effect===========
 }

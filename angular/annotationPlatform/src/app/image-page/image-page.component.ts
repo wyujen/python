@@ -11,17 +11,17 @@ import { DatasetComponentStore } from '../store/dataset-component-store';
 })
 export class ImagePageComponent implements OnInit, OnDestroy {
 
-  deleteSubcription :any
+  // deleteSubcription: any
   image$: Observable<Image>
   fianal$: Observable<boolean>
 
   constructor(
     private _imageCs: ImageComponentStore,
-    private _dataCs: DatasetComponentStore
+    
   ) {
     this.image$ = this._imageCs.actionImage$
     this.fianal$ = this._imageCs.finalImage$
-    this.deleteSubcription = this.image$.subscribe((date) => console.log(date))
+    // this.deleteSubcription = this.image$.subscribe((date) => console.log(date))
   }
   ngOnInit(): void {
 
@@ -34,14 +34,12 @@ export class ImagePageComponent implements OnInit, OnDestroy {
     this._imageCs.submitImage()
   }
   update() {
-    this.deleteSubcription = this._imageCs.Images$.subscribe((images) => this._dataCs.updateImage$(images))
-  }
-  reset(){
-    this._imageCs.resetImageState()
+    // 最後一張照片
   }
 
+
   ngOnDestroy() {
-    this.deleteSubcription.unsubscribe()
+    // this.deleteSubcription.unsubscribe()
   }
 
 }
