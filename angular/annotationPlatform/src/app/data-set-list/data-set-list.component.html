@@ -6,5 +6,8 @@
         {{dataset.description}}&nbsp;
         {{dataset.image.length}}
         {{dataset.isEdited}}
+        <div *ngFor= "let image of dataset.image">
+            {{image.isEdited}}
+        </div>
     </li>
 </div>
