@@ -46,10 +46,13 @@ export class BookDetail2Component implements OnInit {
 
   detailsave(){
     const book: Book = this.bookForm.value as Book
-    this._bookCS.detailUpdateBook(book)
+    this._bookCS.updatebook(book)
   }
 
   deletebook(){
+    const book: Book = this.bookForm.value as Book
+    this._bookCS.deleteOnebook(book)
+    console.log('del')
     
   }
 

@@ -37,7 +37,7 @@ export class DataSetListComponent implements OnInit, OnDestroy {
   }
 
   setImage(dataset: DataSet): void {
-    this._imageCs.loadImage$(dataset.image)
+    this._imageCs.loadImage(dataset.image)
 
   }
 

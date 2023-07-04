@@ -14,18 +14,20 @@ export interface BooksState {
     DeleteBookSelect: number[] | []
 }
 
+const initState = {
+    BookEntires: {},
+    BookDetailValue: false,
+    BookDetailEdit: [],
+    DeleteBookSelect: []
+}
+
 @Injectable({
     providedIn: 'root'
 })
 
 export class BookCompontentStore extends ComponentStore<BooksState>{
     constructor(private _bookService: BookService) {
-        super({
-            BookEntires: {},
-            BookDetailValue: false,
-            BookDetailEdit: [],
-            DeleteBookSelect: []
-        })
+        super(initState)
         this.loadbook()
     }
     // ==========sele==
@@ -57,9 +59,11 @@ export class BookCompontentStore extends ComponentStore<BooksState>{
         return { ...state, BookDetailValue: false }
     })
 
-    readonly setDeleteBook = this.updater((state)=>{
-        return {...state}
+    readonly setDeleteBook = this.updater((state) => {
+        return { ...state }
     })
+
+    readonly resetState = this.updater((state) => { return initState })
 
 
     // ====up==========
@@ -69,43 +73,42 @@ export class BookCompontentStore extends ComponentStore<BooksState>{
 
     readonly loadbook = this.effect((void$: Observable<void>) => {
         return void$.pipe(
-            tap(() => {
-                this._bookService.getBooks().subscribe(book => this.addbook(book))
-            })
+            switchMap(() => this._bookService.getBooks()),
+            tap((books) => console.log(books)),
+            tap((books) => this.addbook(books))
         )
     })
 
-    readonly updatebook = this.effect((void$: Observable<void>) => {
+    readonly reloadState = this.effect((void$: Observable<void>) => {
         return void$.pipe(
-            switchMap(() => this.bookDetail$),
-            switchMap((book) => this._bookService.updateBook(book)),
-            tap(() => this.loadbook())
-
+            tap(() => {
+                this.resetState()
+                this.loadbook()
+            }
+            ),
         )
     })
 
-    readonly deletebook = this.effect((void$: Observable<void>) => {
-        return void$.pipe()})
-            // withLatestFrom(this.deleteBookSelect$),
-            // switchMap((bookIds: number[]) => from(bookIds).pipe(
-            //     switchMap((bookId: number) => this._bookService.deleteBook(bookId))
-
-    readonly deletebooks = this.effect((book$: Observable<Book>) =>{
+    readonly deleteOnebook = this.effect((book$: Observable<Book>) => {
         return book$.pipe(
-            tap((book) =>{
-                console.log(book)
-            }
-            
-            ) 
+            tap((book) => console.log(book)),
+            switchMap((book) => this._bookService.deleteBook(book.id)),
+            tap(() => this.reloadState()),
+        )
+    })
+
+    readonly updatebook = this.effect((book$: Observable<Book>) => {
+        return book$.pipe(
+            tap((book) => console.log(book)),
+            switchMap((book) => this._bookService.updateBook(book)),
+            tap(() => this.reloadState()),
         )
     })
 
     //==eff============
 
-    detailUpdateBook(book: Book) {
-        this.setBookDetail([book])
-        this.updatebook()
-        this.resetBookDetailValue()
-    }
+
+
+
 
 }

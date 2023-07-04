@@ -61,6 +61,7 @@ export class BookService {
 
   deleteBook(id:number): Observable<Book>{
     const url = `${this.booksUrl}/${id}`
+    // console.log(url)
     return this._http.delete<Book>(url, this.httpOptions)
 
   }

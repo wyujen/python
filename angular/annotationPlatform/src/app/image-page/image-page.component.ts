@@ -8,6 +8,7 @@ import { DatasetComponentStore } from '../store/dataset-component-store';
   selector: 'app-image-page',
   templateUrl: './image-page.component.html',
   styleUrls: ['./image-page.component.css']
+  
 })
 export class ImagePageComponent implements OnInit, OnDestroy {
 
@@ -28,13 +29,13 @@ export class ImagePageComponent implements OnInit, OnDestroy {
   }
 
   skip() {
-    this._imageCs.skipImage()
+    this._imageCs.skip$()
   }
   submit() {
-    this._imageCs.submitImage()
+    this._imageCs.sumbit$()
   }
   update() {
-    // 最後一張照片
+    this._imageCs.resetImageState()
   }
 
 

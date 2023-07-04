@@ -1,22 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Image } from '../type/anntation.interface';
 import { ComponentStore } from '@ngrx/component-store';
-import { Observable, from, map, mergeMap, of, tap } from 'rxjs';
+import { Observable, from, mergeMap, tap } from 'rxjs';
 
 export interface ImageCsState {
   ImageEnties: Image[]
-  actionImage: Image
   ImageIndex: number
   finalImage: boolean
 }
 
+
 const InitImageCsState = {
   ImageEnties: [],
-  actionImage: {
-    id: '0',
-    url: '',
-    isEdited: false
-  },
   ImageIndex: 0,
   finalImage: false
 }
@@ -34,94 +29,56 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
   }
 
   // ==========select===
-  readonly actionImage$: Observable<Image> = this.select(state => (state.actionImage))
-  
+  readonly actionImage$: Observable<Image> = this.select(state => (state.ImageEnties[state.ImageIndex]))
   readonly finalImage$: Observable<boolean> = this.select(state => (state.finalImage))
-  readonly Index$: Observable<number> = this.select(state => (state.ImageIndex))
   // ==select===========
 
   // ==========updater==
-  readonly addImage = this.updater((state, image: Image) => {
-    const nextImageEnties = state.ImageEnties
-    // image 的斷點建立處
-    const addimage = image
-    // 
-    nextImageEnties.push(addimage)
-    
-    return { ...state, ImageEnties: nextImageEnties }
+
+  readonly UpdateImage = this.updater((state) => {
+    const editImages = [...state.ImageEnties]
+    const updatedImage = { ...editImages[state.ImageIndex], isEdited: true }
+    editImages[state.ImageIndex] = updatedImage
+    return { ...state, ImageEnties: editImages }
   })
+
+  readonly UpdaterIndex = this.updater((state) => {
+    const updatedIndex = state.ImageIndex + 1
+    if (updatedIndex + 1 > state.ImageEnties.length) {
+      const finalImageValue = true
+      console.log(state.ImageEnties)
+      return { ...state, finalImage: finalImageValue }
+    }
+    console.log(state.ImageEnties)
+    return { ...state, ImageIndex: updatedIndex }
+  })
+
+  readonly loadImage = this.updater((state, image: Image[]) => {
+    const newImages = image
+    return { ...InitImageCsState, ImageEnties: newImages }
+  })
+
 
   readonly resetImageState = this.updater((state) => {
     return InitImageCsState
   })
+  // ==========updater==
+  // ==============effect
+  readonly sumbit$ = this.effect((void$: Observable<void>) => {
+    return void$.pipe(
+      tap(() => {
+        this.UpdateImage()
+        this.UpdaterIndex()
 
-  readonly setFinalValue = this.updater((state) => {
-    return { ...state, finalImage: true }
-  })
-
-  readonly setActionImage = this.updater((state) => {
-    const nextImage = state.ImageEnties[state.ImageIndex]
-    
-    return { ...state, actionImage: nextImage }
-  })
-
-  readonly setNextImageIndex = this.updater((state) => {
-    return { ...state, ImageIndex: state.ImageIndex + 1 }
-  })
-
-  readonly setImageIsEdited = this.updater((state) => {
-    const image = state.actionImage
-    image.isEdited = true;
-    // const images = state.ImageEnties
-    // images[state.ImageIndex] = image
-
-    return { ...state, actionImage:image }
-  })
-
-
-  readonly skipImage = this.updater((state) => {
-    if (state.ImageIndex + 1 < state.ImageEnties.length) {
-      this.setNextImageIndex()
-      this.setActionImage()
-    } else {
-      this.setFinalValue()
-    }
-    return { ...state }
-  })
-
-  readonly submitImage = this.updater((state) => {
-    this.setImageIsEdited()
-    if (state.ImageIndex + 1 < state.ImageEnties.length) {
-      this.setNextImageIndex()
-      this.setActionImage()
-    } else {
-      this.setFinalValue()
-    }
-    return { ...state }
-  })
-
-
-
-
-
-  // ==updater==========
-
-
-  // ==========effect===
-
-  readonly loadImage$ = this.effect((triggert$: Observable<Image[]>) => {
-    return triggert$.pipe(
-      tap(() => this.resetImageState()),
-      mergeMap((images) => from(images).pipe(
-        tap((image) => this.addImage(image)),
-        tap(() => this.setActionImage())
-      )
-      )
+      })
     )
-  }
-  )
+  })
 
-  // ==effect===========
+  readonly skip$ = this.effect((void$: Observable<void>) => {
+    return void$.pipe(
+      tap(() => this.UpdaterIndex())
+    )
+  })
 
-
+  // ==============effect
 }
