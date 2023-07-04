@@ -1,6 +1,6 @@
 <p>data-set-list works!</p>
-
-<div *ngFor=" let dataset of dataSets" (click)='setImage(dataset)' routerLink="/image">
+資料集
+<div class='datasetlist' *ngFor=" let dataset of dataSets" (click)='setImage(dataset)' routerLink="/image">
     <li>
         {{dataset.name}}&nbsp;
         {{dataset.description}}&nbsp;
@@ -13,13 +13,3 @@
     </li>
 </div><br/>
 
-<div>in service data</div>
-<div *ngFor = 'let dataset of datasetByservice'>
-    {{dataset.name}}<br/>
-    =====
-    <div *ngFor = 'let image of dataset.image' >
-        {{image.isEdited}}
-    </div>
-    =====
-
-</div>

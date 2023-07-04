@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 
-import { DataSet, Image } from '../type/anntation.interface';
+import { DataSet } from '../type/anntation.interface';
 import { Observable, mergeMap, of, tap, withLatestFrom } from 'rxjs';
 
 import { DataService } from '../data.service';
@@ -41,6 +41,7 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
     const nextDataSet = state.dataSetEnties
     const adddataset = [...dataset]
     adddataset.map((ddataset) => {
+      console.log(ddataset)
       nextDataSet[ddataset.id] = {...ddataset }
     })
     return { ...state, dataSetEnties: nextDataSet }

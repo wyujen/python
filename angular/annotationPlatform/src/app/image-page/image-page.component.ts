@@ -12,19 +12,19 @@ import { DatasetComponentStore } from '../store/dataset-component-store';
 export class ImagePageComponent implements OnInit, OnDestroy {
 
   // deleteSubcription: any
-  image$: Observable<Image>
-  fianal$: Observable<boolean>
+  image$?: Observable<Image>
+  final$?: Observable<boolean>
 
   constructor(
     private _imageCs: ImageComponentStore,
     
   ) {
-    this.image$ = this._imageCs.actionImage$
-    this.fianal$ = this._imageCs.finalImage$
+    
     // this.deleteSubcription = this.image$.subscribe((date) => console.log(date))
   }
   ngOnInit(): void {
-
+    this.image$ = this._imageCs.actionImage$
+    this.final$ = this._imageCs.finalImage$
   }
 
   skip() {

@@ -55,7 +55,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
     return InitImageCsState
   })
 
-  readonly setFinalImage = this.updater((state) => {
+  readonly setFinalValue = this.updater((state) => {
     return { ...state, finalImage: true }
   })
 
@@ -84,7 +84,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
       this.setNextImageIndex()
       this.setActionImage()
     } else {
-      this.imagefinal$()
+      this.setFinalValue()
     }
     return { ...state }
   })
@@ -95,7 +95,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
       this.setNextImageIndex()
       this.setActionImage()
     } else {
-      this.imagefinal$()
+      this.setFinalValue()
     }
     return { ...state }
   })
@@ -121,11 +121,6 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
   }
   )
 
-  readonly imagefinal$ = this.effect((void$: Observable<void>) => {
-    return void$.pipe(
-      tap(() => this.setFinalImage()),
-    )
-  })
   // ==effect===========
 
 

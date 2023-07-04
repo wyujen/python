@@ -1,10 +1,10 @@
 <p>image-page works!</p>
-<div *ngIf="fianal$|async">
+<div *ngIf="final$|async">
     已到最後一張<br>
     <button routerLink="/datasetlist" (click)="update()">返回</button>
 </div>
 <div>
-    <div *ngIf="!(fianal$|async)">
+    <div *ngIf="!(final$|async)">
         <button (click)="skip()">skip</button>
         <button (click)="submit()">submit</button><br>
     </div>

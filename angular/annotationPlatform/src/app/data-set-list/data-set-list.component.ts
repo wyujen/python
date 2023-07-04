@@ -32,7 +32,7 @@ export class DataSetListComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.deleteSubcription = this._datasetCs.dataSets$.subscribe((dataset) => this.dataSets = dataset)
-    this.datasetByservice = this._dataService.getDataSets()
+    
     
   }
 
