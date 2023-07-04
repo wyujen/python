@@ -8,7 +8,6 @@ export interface DataSet {
     id: string;
     name: string;
     description: string;
-    
     image : Image[]
 
 }

@@ -5,6 +5,7 @@ import { DataSet, Image } from '../type/anntation.interface';
 import { Observable, mergeMap, of, tap, withLatestFrom } from 'rxjs';
 
 import { DataService } from '../data.service';
+import { fakeDataset } from '../fakeData/dataset';
 
 export interface DataSetCsState {
   dataSetEnties: Record<string, DataSet>
@@ -30,7 +31,7 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
   }
 
   // ==========select===
-  
+
   readonly dataSets$: Observable<DataSet[]> = this.select(state => Object.values(state.dataSetEnties))
 
   // ==select===========
@@ -38,8 +39,9 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
 
   readonly addDataSet = this.updater((state, dataset: DataSet[]) => {
     const nextDataSet = state.dataSetEnties
-    dataset.map((dataset) => {
-      nextDataSet[dataset.id] = dataset
+    const adddataset = [...dataset]
+    adddataset.map((ddataset) => {
+      nextDataSet[ddataset.id] = {...ddataset }
     })
     return { ...state, dataSetEnties: nextDataSet }
   })
@@ -52,6 +54,7 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
     return void$.pipe(
       mergeMap(() => {
         const fakedata: DataSet[] = this.dataService.getDataSets()
+        
         return of(fakedata).pipe(
           tap((dataset) => this.addDataSet(dataset)))
       }))

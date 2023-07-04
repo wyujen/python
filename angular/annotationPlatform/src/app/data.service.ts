@@ -13,16 +13,17 @@ export class DataService {
   constructor() { }
 
   getDataSets() {
-    return this.dataSets
+    const fakedata = [...this.dataSets]
+    return fakedata
   }
 
-  updateDataSet(id: string, newimage: Image[]) {
-    this.dataSets = this.dataSets.map(dataSet => {
-      if (dataSet.id === id) {
-        return { ...dataSet, image: newimage, isEdited:true }
-      } else {
-        return dataSet
-      }
-    })
-  }
+  // updateDataSet(id: string, newimage: Image[]) {
+  //   this.dataSets = this.dataSets.map(dataSet => {
+  //     if (dataSet.id === id) {
+  //       return { ...dataSet, image: newimage, isEdited:true }
+  //     } else {
+  //       return dataSet
+  //     }
+  //   })
+  // }
 }

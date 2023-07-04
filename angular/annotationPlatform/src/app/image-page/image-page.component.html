@@ -2,13 +2,11 @@
 <div *ngIf="fianal$|async">
     已到最後一張<br>
     <button routerLink="/datasetlist" (click)="update()">返回</button>
-
 </div>
 <div>
     <div *ngIf="!(fianal$|async)">
         <button (click)="skip()">skip</button>
         <button (click)="submit()">submit</button><br>
     </div>
-
     <img [src]="(image$| async)?.url" width="40%" height="40%">
 </div>

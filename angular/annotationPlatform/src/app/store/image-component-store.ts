@@ -42,9 +42,12 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
 
   // ==========updater==
   readonly addImage = this.updater((state, image: Image) => {
-    const nextImageEnties = [...state.ImageEnties]
+    const nextImageEnties = state.ImageEnties
+    // image 的斷點建立處
     const addimage = image
+    // 
     nextImageEnties.push(addimage)
+    
     return { ...state, ImageEnties: nextImageEnties }
   })
 
@@ -58,6 +61,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
 
   readonly setActionImage = this.updater((state) => {
     const nextImage = state.ImageEnties[state.ImageIndex]
+    
     return { ...state, actionImage: nextImage }
   })
 
@@ -68,11 +72,10 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
   readonly setImageIsEdited = this.updater((state) => {
     const image = state.actionImage
     image.isEdited = true;
+    // const images = state.ImageEnties
+    // images[state.ImageIndex] = image
 
-    const images = state.ImageEnties
-    images[state.ImageIndex] = image
-
-    return { ...state, ImageEnties: images }
+    return { ...state, actionImage:image }
   })
 
 
@@ -81,7 +84,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
       this.setNextImageIndex()
       this.setActionImage()
     } else {
-      this.imagefinal()
+      this.imagefinal$()
     }
     return { ...state }
   })
@@ -92,7 +95,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
       this.setNextImageIndex()
       this.setActionImage()
     } else {
-      this.imagefinal()
+      this.imagefinal$()
     }
     return { ...state }
   })
@@ -118,7 +121,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
   }
   )
 
-  readonly imagefinal = this.effect((void$: Observable<void>) => {
+  readonly imagefinal$ = this.effect((void$: Observable<void>) => {
     return void$.pipe(
       tap(() => this.setFinalImage()),
     )

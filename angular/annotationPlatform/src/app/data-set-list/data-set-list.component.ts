@@ -3,6 +3,7 @@ import { DataSet } from '../type/anntation.interface';
 import { DatasetComponentStore } from '../store/dataset-component-store';
 import { Observable } from 'rxjs';
 import { ImageComponentStore } from '../store/image-component-store';
+import { DataService } from '../data.service';
 
 
 
@@ -17,18 +18,22 @@ export class DataSetListComponent implements OnInit, OnDestroy {
   dataSets?: DataSet[]
   deleteSubcription: any
 
+  datasetByservice? :DataSet[]
+
 
 
   constructor(
     private _datasetCs: DatasetComponentStore,
-    private _imageCs: ImageComponentStore
+    private _imageCs: ImageComponentStore,
+    private _dataService : DataService
   ) {
     this.dataSets$ = this._datasetCs.dataSets$
 
   }
   ngOnInit(): void {
     this.deleteSubcription = this._datasetCs.dataSets$.subscribe((dataset) => this.dataSets = dataset)
-
+    this.datasetByservice = this._dataService.getDataSets()
+    
   }
 
   setImage(dataset: DataSet): void {
@@ -38,7 +43,6 @@ export class DataSetListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.deleteSubcription.unsubscribe()
-
   }
 
 

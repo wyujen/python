@@ -9,5 +9,17 @@
         <div *ngFor="let image of dataset.image">
             {{image.isEdited}}
         </div>
+        
     </li>
+</div><br/>
+
+<div>in service data</div>
+<div *ngFor = 'let dataset of datasetByservice'>
+    {{dataset.name}}<br/>
+    =====
+    <div *ngFor = 'let image of dataset.image' >
+        {{image.isEdited}}
+    </div>
+    =====
+
 </div>
