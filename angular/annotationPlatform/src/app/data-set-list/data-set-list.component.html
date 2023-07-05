@@ -1,6 +1,6 @@
 <p>data-set-list works!</p>
 資料集
-<div class='datasetlist' *ngFor=" let dataset of dataSets" (click)='setImage(dataset)' routerLink="/image">
+<div class='datasetlist' *ngFor=" let dataset of dataSets$ | async" (click)='setImage(dataset)' routerLink="/image">
     <li>
         {{dataset.name}}&nbsp;
         {{dataset.description}}&nbsp;

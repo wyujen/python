@@ -37,12 +37,14 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
   // ==select===========
   // ==========updater==
 
+
+  
   readonly addDataSet = this.updater((state, dataset: DataSet[]) => {
     const nextDataSet = state.dataSetEnties
-    const adddataset = [...dataset]
-    adddataset.map((ddataset) => {
-      console.log(ddataset)
-      nextDataSet[ddataset.id] = {...ddataset }
+    const addataset = [...dataset]
+    addataset.map((dataset) => {
+      console.log(dataset)
+      nextDataSet[dataset.id] = {...dataset }
     })
     return { ...state, dataSetEnties: nextDataSet }
   })
@@ -55,7 +57,6 @@ export class DatasetComponentStore extends ComponentStore<DataSetCsState>{
     return void$.pipe(
       mergeMap(() => {
         const fakedata: DataSet[] = this.dataService.getDataSets()
-        
         return of(fakedata).pipe(
           tap((dataset) => this.addDataSet(dataset)))
       }))

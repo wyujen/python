@@ -27,7 +27,6 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
   constructor() {
     super(InitImageCsState)
   }
-
   // ==========select===
   readonly actionImage$: Observable<Image> = this.select(state => (state.ImageEnties[state.ImageIndex]))
   readonly finalImage$: Observable<boolean> = this.select(state => (state.finalImage))
@@ -46,10 +45,8 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
     const updatedIndex = state.ImageIndex + 1
     if (updatedIndex + 1 > state.ImageEnties.length) {
       const finalImageValue = true
-      console.log(state.ImageEnties)
       return { ...state, finalImage: finalImageValue }
     }
-    console.log(state.ImageEnties)
     return { ...state, ImageIndex: updatedIndex }
   })
 
@@ -57,7 +54,6 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
     const newImages = image
     return { ...InitImageCsState, ImageEnties: newImages }
   })
-
 
   readonly resetImageState = this.updater((state) => {
     return InitImageCsState
@@ -69,7 +65,6 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
       tap(() => {
         this.UpdateImage()
         this.UpdaterIndex()
-
       })
     )
   })
@@ -79,6 +74,5 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
       tap(() => this.UpdaterIndex())
     )
   })
-
   // ==============effect
 }

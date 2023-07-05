@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataSet } from '../type/anntation.interface';
 import { DatasetComponentStore } from '../store/dataset-component-store';
 import { Observable } from 'rxjs';
 import { ImageComponentStore } from '../store/image-component-store';
-import { DataService } from '../data.service';
+
 
 
 
@@ -12,38 +12,20 @@ import { DataService } from '../data.service';
   templateUrl: './data-set-list.component.html',
   styleUrls: ['./data-set-list.component.css']
 })
-export class DataSetListComponent implements OnInit, OnDestroy {
+export class DataSetListComponent implements OnInit {
 
-  dataSets$: Observable<DataSet[]>
-  dataSets?: DataSet[]
-  deleteSubcription: any
-
-  datasetByservice? :DataSet[]
-
-
+  dataSets$?: Observable<DataSet[]>
 
   constructor(
     private _datasetCs: DatasetComponentStore,
     private _imageCs: ImageComponentStore,
-    private _dataService : DataService
-  ) {
-    this.dataSets$ = this._datasetCs.dataSets$
 
-  }
+  ){}
   ngOnInit(): void {
-    this.deleteSubcription = this._datasetCs.dataSets$.subscribe((dataset) => this.dataSets = dataset)
-    
-    
+    this.dataSets$ = this._datasetCs.dataSets$
   }
 
   setImage(dataset: DataSet): void {
-    this._imageCs.loadImage(dataset.image)
-
-  }
-
-  ngOnDestroy() {
-    this.deleteSubcription.unsubscribe()
-  }
-
+    this._imageCs.loadImage(dataset.image)}
 
 }
