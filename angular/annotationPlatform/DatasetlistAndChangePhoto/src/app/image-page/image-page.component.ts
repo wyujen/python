@@ -24,7 +24,7 @@ export class ImagePageComponent implements OnInit, OnDestroy {
     // this.deleteSubcription = this.image$.subscribe((date) => console.log(date))
   }
   ngOnInit(): void {
-    this.image$ = this._imageCs.actionImage$
+    this.image$ = this._imageCs.currenImage$
     this.final$ = this._imageCs.finalImage$
   }
 
@@ -35,7 +35,7 @@ export class ImagePageComponent implements OnInit, OnDestroy {
     this._imageCs.sumbit$()
   }
   update() {
-    this._imageCs.resetImageState()
+    
   }
 
 

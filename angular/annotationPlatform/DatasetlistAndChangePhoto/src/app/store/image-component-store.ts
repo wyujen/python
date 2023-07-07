@@ -28,7 +28,7 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
     super(InitImageCsState)
   }
   // ==========select===
-  readonly actionImage$: Observable<Image> = this.select(state => (state.ImageEnties[state.ImageIndex]))
+  readonly currenImage$: Observable<Image> = this.select(state => (state.ImageEnties[state.ImageIndex]))
   readonly finalImage$: Observable<boolean> = this.select(state => (state.finalImage))
   // ==select===========
 
@@ -55,9 +55,9 @@ export class ImageComponentStore extends ComponentStore<ImageCsState>{
     return { ...InitImageCsState, ImageEnties: newImages }
   })
 
-  readonly resetImageState = this.updater((state) => {
-    return InitImageCsState
-  })
+  // readonly resetImageState = this.updater((state) => {
+  //   return InitImageCsState
+  // })
   // ==========updater==
   // ==============effect
   readonly sumbit$ = this.effect((void$: Observable<void>) => {
