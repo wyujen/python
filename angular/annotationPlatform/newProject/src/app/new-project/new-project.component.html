@@ -1,0 +1,58 @@
+<p>new-project works!</p>
+
+
+<div *ngIf="!nameReady">
+    <button>選擇資料</button>
+    <button>新增資料</button>
+</div>
+<div *ngIf="nameReady">
+    <button>選擇知識</button>
+    <button>新增知識</button>
+</div>
+
+
+<form [formGroup]='projectForm' >
+    <div *ngIf="!nameReady && !isAdd">
+        <label>
+            名稱:<input formControlName="name">
+        </label><br/>
+        <label>
+            說明:<input formControlName="descripthon">
+        </label>
+        <div>未加入清單
+            <div>
+                search<input>
+            </div>
+            <div *ngFor="let dataset of datasets$ | async">
+                <li>{{dataset.id}}<button (click) = 'clickAddDataset(dataset)'>加入</button></li>
+            </div>
+        </div>
+        <div>已加入清單
+                <div  *ngFor="let dataset of datasetArray ">
+                    <li>{{dataset.id}}<button (click) = 'clickDelDataset(dataset)'>刪除</button></li>
+                </div>
+        </div>
+        <button type="button" (click)="nextStep()" [disabled]="projectForm.invalid">下一步</button>
+    </div>
+</form>
+
+    <div *ngIf='nameReady !isAdd'>
+        Ontology
+        <div>未加入清單
+            <div>
+                search<input>
+            </div>
+            <div *ngFor="let ontology of ontology$ | async">
+                <li>{{ontology.id}}<button (click) = 'clickAddOntology(ontology)'>加入</button></li>
+            </div>
+        </div>
+        <div >已加入知識本體
+            <div *ngIf="tempProject?.ontology?.id">
+                {{tempProject?.ontology?.id}} <button  (click)='clickDelOntology()'>刪除</button>
+            </div>
+        </div>
+        <button (click)="beforeStep()">上一頁</button>
+    </div>
+
+
+
