@@ -2,14 +2,13 @@
 
 
 <div *ngIf="!nameReady">
-    <button>選擇資料</button>
-    <button>新增資料</button>
+    <button (click)="addBack()">選擇資料</button>
+    <button (click)="toTempAdd()">新增資料</button>
 </div>
 <div *ngIf="nameReady">
-    <button>選擇知識</button>
-    <button>新增知識</button>
+    <button (click)="addBack()">選擇知識</button>
+    <button (click)="toTempAdd()">新增知識</button>
 </div>
-
 
 <form [formGroup]='projectForm' >
     <div *ngIf="!nameReady && !isAdd">
@@ -36,7 +35,7 @@
     </div>
 </form>
 
-    <div *ngIf='nameReady !isAdd'>
+    <div *ngIf='nameReady && !isAdd'>
         Ontology
         <div>未加入清單
             <div>
@@ -52,7 +51,12 @@
             </div>
         </div>
         <button (click)="beforeStep()">上一頁</button>
+        <button (click)="submitProject()" [disabled]="!tempProject?.ontology?.id">送出</button>
     </div>
-
-
+    <div *ngIf="!nameReady && isAdd">
+        新增資料
+    </div>
+    <div *ngIf="nameReady && isAdd">
+        新增知識
+    </div>
 

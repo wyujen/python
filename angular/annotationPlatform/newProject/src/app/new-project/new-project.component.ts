@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable, combineLatest, filter, from, map, of, switchMap, tap } from 'rxjs';
-import { Dataset, Ontology, Project } from '../_type&data/project.interface';
-import { EntiteService } from '../entite.service';
-
-import { ProjectComponentStore } from '../Store/project.componentstore';
+import { Observable, combineLatest, map} from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 
-
-
+import { Dataset, Ontology, Project } from '../_type&data/project.interface';
+import { EntiteService } from '../entite.service';
+import { ProjectComponentStore } from '../Store/project.componentstore';
 
 @Component({
   selector: 'app-new-project',
@@ -39,12 +36,10 @@ export class NewProjectComponent implements OnInit {
 
   }
   ngOnInit() {
-
     this.projectCs.project$.subscribe((project) => {
       this.tempProject = project
       this.datasetArray = Object.values(project.datasetList)
     })
-
     this.datasets$ = combineLatest([
       this.entiteService.getDatasets(),
       this.projectCs.project$
@@ -88,14 +83,14 @@ export class NewProjectComponent implements OnInit {
     this.setFormValue()
   }
 
+  submitProject(){
+    this.projectCs.updaterProject(this.tempProject as Project)
+  }
+
   updateTempProject() {
-    console.log(this.projectForm.value)
     let project = this.projectForm.value 
     delete project['datasetListValue']
-    console.log(0,project)
-    
     const finalproject = project as Project
-    // const finalproject = this.projectForm.value  as Project
     this.projectCs.UpdateTempProject(finalproject)
   }
 
@@ -115,5 +110,11 @@ export class NewProjectComponent implements OnInit {
   clickDelOntology() {
     this.projectCs.tempDelOntology()
     this.setFormValue()
+  }
+  toTempAdd(){
+    this.isAdd = true
+  }
+  addBack(){
+    this.isAdd = false
   }
 }
