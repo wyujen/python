@@ -1,0 +1,25 @@
+<p>add-ontology works!</p>
+<label>
+    知識本體名稱:<input/>
+</label><br>
+<label>
+    說明:<input/>
+</label>
+<div>
+    加入物件
+    <div *ngFor="let item of datasetForm.value.items; let i = index">
+        <select>
+            <option>物件</option>
+            <option *ngFor="let item of items$|async" value='item' >{{item.name}}</option>
+        </select>
+        <select>
+            <option>形狀</option>
+            <option *ngFor="let shape of shapes$|async" value='shape'>{{shape.name}}</option>
+        </select>
+        <button (click)="removeItem(i)">刪除</button>
+    </div><br>
+    <button (click)="addItem()">新增</button>
+</div><br>
+
+<button >上一步</button>
+<button>完成</button>
